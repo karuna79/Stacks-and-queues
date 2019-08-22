@@ -1,0 +1,51 @@
+#include <stdio.h>
+struct stack
+{
+    int top;
+    unsigned capacity;
+    int* arr;
+};
+struct stack* createStack(unsigned capacity)
+{
+    struct stack* s=(struct stack*)malloc(sizeof(struct stack));
+    s->top=-1;
+    s->capacity=capacity;
+    s->arr=(int*)malloc(capacity*sizeof(int));
+    return s;
+}
+int isFull(struct stack* s) 
+{ 
+    return s->top == s->capacity - 1; 
+}
+int isEmpty(struct stack* s) 
+{ 
+    return s->top == -1; 
+}
+void push(struct stack* s,int item)
+{
+    if(isFull(s))
+    return;
+    s->arr[++s->top]=item;
+}
+int pop(struct stack* s)
+{
+    if(isEmpty(s))
+    return -1;
+    return s->arr[s->top--];
+}
+int peek(struct stack* s) 
+{ 
+    if (isEmpty(s)) 
+        return -1; 
+    return s->arr[s->top]; 
+} 
+int main() {
+	//code
+	struct stack* s=createStack(100);
+	push(s,10);
+	push(s,20);
+	push(s,30);
+	printf("%d",peek(s));
+	printf("\n%d",pop(s));
+	return 0;
+}
